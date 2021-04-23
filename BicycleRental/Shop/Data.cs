@@ -8,6 +8,9 @@ namespace BicycleRental.Shop
 {
     public static class Data
     {
+        /// <summary>
+        /// Checks if certain tables are empty and inserts required data if needed
+        /// </summary>
         public static void DataCheck()
         {
             if(Environment.BikeShopContext.Stores.Count() == 0 && Environment.BikeShopContext.Bicycles.Count() == 0)
@@ -16,6 +19,9 @@ namespace BicycleRental.Shop
             }
         }
 
+        /// <summary>
+        /// Inserts required data to the database
+        /// </summary>
         private static void insertData()
         {
             var store1 = new Models.Stores("Johans bikeshop", "Sisjöngatan 23");

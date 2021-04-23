@@ -33,11 +33,11 @@ namespace BicycleRental.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
 
-                    b.Property<double>("Store_Id")
-                        .HasColumnType("float");
+                    b.Property<int>("Store_Id")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

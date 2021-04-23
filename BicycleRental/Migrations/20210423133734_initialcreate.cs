@@ -14,8 +14,8 @@ namespace BicycleRental.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Bicycle_name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
                     Available = table.Column<bool>(type: "bit", nullable: false),
-                    Price = table.Column<double>(type: "float", nullable: false),
-                    Store_Id = table.Column<double>(type: "float", nullable: false)
+                    Price = table.Column<int>(type: "int", nullable: false),
+                    Store_Id = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

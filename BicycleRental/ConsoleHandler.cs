@@ -21,6 +21,9 @@ namespace BicycleRental
             this.stringBuilder.AppendLine("Enter 6 to change return date of a bicycle");
         }
 
+        /// <summary>
+        /// Shows menu for user
+        /// </summary>
         public void InitializeMenu()
         {
             Console.WriteLine(stringBuilder);
@@ -37,6 +40,10 @@ namespace BicycleRental
             Console.WriteLine();
         }
 
+        /// <summary>
+        /// Handles user input
+        /// </summary>
+        /// <param name="input">User input</param>
         private static void inputHandler(int input)
         {
             if (Environment.MainMenu.MenuSections.TryGetValue(input, out var menuSection))

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BicycleRental.Migrations
 {
     [DbContext(typeof(BikeShopContext))]
-    [Migration("20210418215351_initialcreate")]
+    [Migration("20210423133734_initialcreate")]
     partial class initialcreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,11 +35,11 @@ namespace BicycleRental.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
 
-                    b.Property<double>("Store_Id")
-                        .HasColumnType("float");
+                    b.Property<int>("Store_Id")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

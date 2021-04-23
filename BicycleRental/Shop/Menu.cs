@@ -22,6 +22,9 @@ namespace BicycleRental.Shop
             this.MenuSections.Add(6, this.ChangeReturnDate);
         }
 
+        /// <summary>
+        /// Registers a customer
+        /// </summary>
         public void RegisterCustomer()
         {
             Console.WriteLine("First Name: ");
@@ -41,6 +44,9 @@ namespace BicycleRental.Shop
             Console.WriteLine("Customer Registered");
         }
 
+        /// <summary>
+        /// Creates a booking for current customer
+        /// </summary>
         public void CreateBooking()
         {
             this.ShowBicycles();
@@ -70,6 +76,9 @@ namespace BicycleRental.Shop
             }
         }
 
+        /// <summary>
+        /// Shows all bookings for current customer
+        /// </summary>
         public void ShowBookings()
         {
             StringBuilder stringBuilder = new StringBuilder();
@@ -81,6 +90,9 @@ namespace BicycleRental.Shop
             }
         }
 
+        /// <summary>
+        /// Shows all available bicycles
+        /// </summary>
         public void ShowBicycles()
         {
             StringBuilder stringBuilder = new StringBuilder();
@@ -95,6 +107,9 @@ namespace BicycleRental.Shop
             Console.WriteLine(stringBuilder.ToString());
         }
 
+        /// <summary>
+        /// Removes a booking
+        /// </summary>
         public void RemoveBooking()
         {
             this.ShowBookings();
@@ -104,8 +119,15 @@ namespace BicycleRental.Shop
             {
                 var booking = Environment.BikeShopContext.Bookings.Where(x => x.Id == bookingId).FirstOrDefault();
 
-                foreach(var bookingItem in Environment.BikeShopContext.Bookings_Items.Where(x => x.Booking_Id == booking.Id))
+                if (booking.Customer_Id != Environment.CustomerId)
                 {
+                    Console.WriteLine("You cannot remove another customers booking");
+                    return;
+                }
+
+                foreach(var bookingItem in Environment.BikeShopContext.Bookings_Items.Where(x => x.Booking_Id == booking.Id).ToList())
+                {
+                    Environment.BikeShopContext.Bicycles.Where(x => x.Id == bookingItem.Bicycle_Id).FirstOrDefault().Available = true;
                     Environment.BikeShopContext.Bookings_Items.Remove(bookingItem);
                 }
 
@@ -120,9 +142,40 @@ namespace BicycleRental.Shop
             }
         }
 
+        /// <summary>
+        /// Changes the return date of an existing booking
+        /// </summary>
         public void ChangeReturnDate()
         {
+            Console.WriteLine("Booking Id: ");
+            if (int.TryParse(Console.ReadLine(), out int bookingId))
+            {
+                var booking = Environment.BikeShopContext.Bookings.Where(x => x.Id == bookingId).FirstOrDefault();
 
+                if (booking.Customer_Id != Environment.CustomerId)
+                {
+                    Console.WriteLine("You cannot change another customers booking");
+                    return;
+                }
+
+                Console.WriteLine("How many days would you like to extend the rental date with?");
+                if (int.TryParse(Console.ReadLine(), out int days))
+                {
+                    DateTime newReturnDate = Convert.ToDateTime(booking.Date_Return);
+                    booking.Date_Return = newReturnDate.AddDays(days).ToString();
+                    Environment.BikeShopContext.SaveChanges();
+                }
+                else
+                {
+                    Console.WriteLine("Input is not numeric, please try again.");
+                }
+
+                Console.WriteLine("Return date changed");
+            }
+            else
+            {
+                Console.WriteLine("Input is not numeric, please try again.");
+            }
         }
     }
 }

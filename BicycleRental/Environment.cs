@@ -13,6 +13,9 @@ namespace BicycleRental
         public static ConsoleHandler ConsoleHandler { get; set; }
         public static int CustomerId { get; set; }
 
+        /// <summary>
+        /// Initializes the required objects
+        /// </summary>
         public static void Initialize()
         {
             BikeShopContext = new Data.BikeShopContext();
